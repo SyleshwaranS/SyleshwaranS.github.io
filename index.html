@@ -134,7 +134,7 @@ nav{
   margin:0 auto;
   width:100%;
   display:grid;
-  grid-template-columns:1fr 420px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
   gap:4rem;
   align-items:center;
 }
@@ -239,19 +239,27 @@ h1 .name-accent{color:var(--accent);}
   padding:24px 28px 32px 28px;
 }
 .hero-photo-card{
-  width:340px;height:400px;
+  width:100%;
+  max-width:340px;
+  aspect-ratio: 340 / 400;
+  height:auto;
+
   border-radius:28px;
-  overflow:visible;
+  overflow:hidden; /* important: keeps badges/overlay from causing weird layout */
   position:relative;
   box-shadow:0 24px 64px rgba(124,58,237,0.18),0 2px 0 rgba(255,255,255,0.8) inset;
   border:2px solid var(--glass-border);
 }
 .hero-photo-card img{
-  width:100%;height:100%;
+  width:100%;
+  height:100%;
   object-fit:cover;
   object-position:center top;
-  border-radius:26px;
+  border-radius:0; /* avoid double rounding */
+  display:block;
 }
+.hero-left{min-width:0;}
+.hero-photo-wrap{min-width:0;}
 .hero-photo-card::after{
   content:'';
   position:absolute;inset:0;
@@ -708,7 +716,9 @@ footer{
   #hero{padding:7rem 2rem 4rem;}
   .hero-inner{grid-template-columns:1fr;gap:3rem;}
   .hero-photo-wrap{order:-1;}
-  .hero-photo-card{width:220px;height:260px;}
+  .hero-photo-card{width:220px;height:260px; aspect-ratio: 220 / 260;}
+  .float-badge{transform:scale(0.92); transform-origin: bottom left;}
+  .float-badge2{transform:scale(0.92); transform-origin: top right;
   section{padding:4rem 2rem;}
   .about-grid,.projects-grid{grid-template-columns:1fr;}
   .proj-card.featured{grid-template-columns:1fr;}
